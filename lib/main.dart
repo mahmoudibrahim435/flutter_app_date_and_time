@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,114 +31,16 @@ class dateandtime extends StatefulWidget {
 }
 
 class _dateandtimeState extends State<dateandtime> {
-  String year = "";
-  String month = "";
-  String day = "";
-  String weekday = "";
-
-  String seconds = "";
-  String minutes = "";
-  int hours = 0;
+  String week = "";
+  String date = "";
+  String time = "";
 
   datechanges() {
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        year = DateTime.now().year.toString();
-        day = DateTime.now().day.toString();
-        month = DateTime.now().month.toString();
-        weekday = DateTime.now().weekday.toString();
-        switch (month) {
-          case "1":
-            month = "Jan";
-            break;
-
-          case "2":
-            month = "Feb";
-            break;
-
-          case "3":
-            month = "Mar";
-            break;
-
-          case "4":
-            month = "Apr";
-            break;
-
-          case "5":
-            month = "may";
-            break;
-
-          case "6":
-            month = "Jun";
-            break;
-
-          case "7":
-            month = "Jun";
-            break;
-
-          case "8":
-            month = "Jul";
-            break;
-
-          case "9":
-            month = "Aug";
-            break;
-
-          case "10":
-            month = "Oct";
-            break;
-
-          case "11":
-            month = "Nov";
-            break;
-
-          case "12":
-            month = "Dec";
-            break;
-        }
-
-        switch (weekday) {
-          case "1":
-            weekday = "Saturday";
-            break;
-
-          case "2":
-            weekday = "Sunday";
-            break;
-
-          case "3":
-            weekday = "Monday";
-            break;
-
-          case "4":
-            weekday = "Tuseday";
-            break;
-
-          case "5":
-            weekday = "Wednsday";
-            break;
-
-          case "6":
-            weekday = "Thursday";
-            break;
-
-          case "7":
-            weekday = "Friday";
-            break;
-        }
-      });
-    });
-  }
-
-  timechanges() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        hours = DateTime.now().hour;
-        if (hours > 12) {
-          hours = hours - 12;
-        }
-        minutes = DateTime.now().minute.toString();
-        seconds = DateTime.now().second.toString();
+        week =( DateFormat("E").format(DateTime.now()));
+        date = (DateFormat("yMMMd").format(DateTime.now()));
+        time = ( DateFormat('hh:mm:ss aaa').format(DateTime.now()));
       });
     });
   }
@@ -145,7 +49,6 @@ class _dateandtimeState extends State<dateandtime> {
   void initState() {
     super.initState();
     datechanges();
-    timechanges();
   }
 
   @override
@@ -165,21 +68,21 @@ class _dateandtimeState extends State<dateandtime> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Today's Date is $weekday",
+              "Today's Date is $week ",
               style: TextStyle(fontSize: 22, color: Colors.white),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              "$month/${day.padLeft(2, "0")}/$year",
+              date,
               style: TextStyle(fontSize: 22, color: Colors.white),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              "${hours.toString().padLeft(2, "0")}:${minutes.padLeft(2, "0")}:${seconds.padLeft(2, "0")}",
+              time,
               style: TextStyle(fontSize: 22, color: Colors.white),
             ),
             SizedBox(
